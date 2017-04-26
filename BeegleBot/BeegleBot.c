@@ -22,6 +22,35 @@ void LDrive(int prw){
 void RDrive(int prw){
 	motor[BRWheel] = motor[FRWheel] = prw;
 }
+void lLift(int pwr){
+	motor[LFLift] = motor[LBLift] = pwr;
+}
+void rLift(int pwr){
+	motor[RFWheel] = motor[RBWheel] = pwr;
+}
+void claw(int pwr){
+	motor[lClaw] = motor[rClaw] = pwr;
+}
+
+void goRobit(int pwrR, int pwrL, int time){
+	RDrive = pwrR;
+	LDrive = pwrL;
+	wait1Msec(time);
+	RDrive = 0;
+	LDrive = 0;
+}
+
+void goLift(int pwr, int time){
+	rLift = lLift = pwr;
+	wait1Msec(time);
+	rLift = lLift = 0;
+}
+
+void goClaw(int pwr, int time){
+	claw = pwr;
+	wait1Msec(time);
+	claw = 0;
+}
 
 void pre_auton(){
 
@@ -32,5 +61,8 @@ task autonomous(){
 }
 
 task usercontrol(){
-
+	while(true){
+		vexRT[Ch2] = LDrive;
+		vexRT[Ch3] = RDrive;
+	}
 }
