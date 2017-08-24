@@ -2,6 +2,3 @@
 ## Beegle's Bot
 ### Design
 A basic scissor lift.
-## Liam's Bot
-### Design
-Like a garbage truck

@@ -12,10 +12,12 @@
 
 #include "Vex_Competition_Includes.c"//gets the vexcopeticiotn package
 
-void LDrive(int prw){
+void LDrive(int prw)
+{
 	motor[BLWheel] = motor[FLWheel] = prw;
 }
-void RDrive(int prw){//function to turn on the right drive
+void RDrive(int prw)//function to turn on the right drive
+{
 	motor[BRWheel] = motor[FRWheel] = prw;
 }
 void lift(int pwr){//function for the lift
