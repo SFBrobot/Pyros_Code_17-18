@@ -2,8 +2,8 @@
 #pragma config(Motor,  port2,           BLDrive,       tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port3,           FRDrive,       tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port4,           BRDrive,       tmotorVex393_MC29, openLoop, reversed)
-#pragma config(Motor,  port5,            ,             tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port6,            ,             tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port5,           LLift,         tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port6,           RLift,         tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port7,            ,             tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port8,            ,             tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port9,            ,             tmotorVex393_MC29, openLoop)
@@ -22,7 +22,7 @@ void RDrive(int prw)//function to turn on the right drive
 }
 void lift(int pwr)//function for the lift
 {
-	motor[LFLift] = motor[LBLift] = motor[RFLift] = motor[RBLift] = pwr;
+	motor[LLift] = motor[RLift] = pwr;
 }
 
 void claw(int pwr)
@@ -43,7 +43,7 @@ void goLift(int pwr, int time)
 {
 	lift(pwr);
 	wait1Msec(time);
-	motor[LFLift] = motor[LBLift] = motor[RFLift] = motor[RBLift] = 0;
+	lift(0);
 }
 
 void goClaw(int pwr, int time)
@@ -73,7 +73,6 @@ void pre_auton()
 
 task autonomous()
 {
-	goLift(127, 3500);
 
 }
 
