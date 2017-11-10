@@ -100,6 +100,7 @@ void pre_auton()
 
 task autonomous()
 {
+	//test code for leftswitcher
 	checkSide();
 	goRobit(127, 127, 1000);
 	goRobit(127, -127, 1000, true);
