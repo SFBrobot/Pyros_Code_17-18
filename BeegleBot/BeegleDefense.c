@@ -28,6 +28,7 @@ void Strafe(int pwr)
 {
 	motor[FStrafe] = motor[BStrafe] = pwr;
 }
+
 //Auton funcs
 void goRobit(int pwrL, int pwrR, int time)
 {
