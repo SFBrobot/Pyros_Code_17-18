@@ -33,6 +33,20 @@ void goRobit(int pwrL, int pwrR, int time)
 	RDrive(0);
 	wait1Msec(20);
 }
+void goRobit(int pwrL, int pwrR, int time, bool useSideSwitcher)//overloaded function for turning
+{
+	if(useSideSwitcher && SensorValue[leftJumper])
+	{
+		pwrR *= -1;
+		pwrL *= -1;
+	}
+	LDrive(pwrL);
+	RDrive(pwrR);
+	wait1Msec(time);
+	LDrive(0);
+	RDrive(0);
+	wait1Msec(20);
+}
 void GoMGI(int pwr, int time)
 {
 	MGIntake(pwr);
@@ -51,44 +65,26 @@ void tank(int pwrL, int pwrR)
 	LDrive(pwrL);
 	RDrive(pwrR);
 }
-void EmergAuton()
-{
-	GoMGI(127, 400);
-	goRobit(127, 127, 1650);
-	GoMGI(-63, 1200);
-	goRobit(-127, 127, 1000);
-	goRobit(127, 127, 2250);
-	GoMGI(127, 250);
-}
+//Autons
+//Write all code like it's on the right side of the field
 void ForwardAuton()
 {
 	goRobit(127, 127, 3500);
 }
-/*
-bool onLeft;
-void LeftTest()
+void TwentyPointAuton()
 {
-	if(leftJumper)
-		onLeft = true;
-	else
-		onLeft = false;
+	goRobit(127, 127, 2000);
+	GoMGI(127, 400);
+	goRobit(127, 127, 500);
+	GoMGI(-127, 400);//pick up the MG
+	goRobit(-127, -127, 2000);//back up near starting
+	goRobit(-127, 127, 1000, true);//turn 135 degrees to the left
+	goRobit(127, 127, 750);//forward near center of scoring zone
+	goRobit(-127, 127, 750, true);//turn 90 degrees to face 20 point zone
+	goRobit(127, 127, 2000);//forward to 20 point zone
+	GoMGI(127, 400);//drop mobile goal
+	goRobit(-127, -127, 2000);//back up
 }
-void goRobit(int pwrL, int pwrR, int time, bool useLeftSwitcher)
-{
-	LDrive(pwrL);
-	RDrive(pwrR);
-	wait1Msec(time);
-	LDrive(0);
-	RDrive(0);
-	wait1Msec(20);
-}
-void DefenseAuton(bool left)
-{
-	goRobit(127, 127, 1500);
-	MGIntake(127, 350);
-	goRobit(127, 127, 300);
-}
-*/
 //Competition funcs/tasks
 void pre_auton(){}
 task autonomous()
@@ -99,8 +95,6 @@ task usercontrol()
 {
 	while(true)
 	{
-		if(vexRT[Btn8D])
-			ForwardAuton();
 		arcade(vexRT[Ch3], vexRT[Ch4]);
 		if(vexRT[Btn6U])
 			MGIntake(127);
